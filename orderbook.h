@@ -17,8 +17,14 @@ struct Order {
     double price;
     int64_t size;
     int64_t original_size;
-    int64_t traded_size = 0;
+    int64_t traded_size;
+
+    Order() = default;
+
+    Order(char s, double p, int64_t sz, int64_t orig_sz, int64_t traded = 0)
+        : side(s), price(p), size(sz), original_size(orig_sz), traded_size(traded) {}
 };
+
 
 using BidBook = std::map<double, LevelInfo, std::greater<double>>;
 using AskBook = std::map<double, LevelInfo, std::less<double>>;
@@ -142,10 +148,9 @@ public:
         }
     }
 
-    // Getters for testing purposes
     const BidBook& get_bids() const { return bids; }
     const AskBook& get_asks() const { return asks; }
     const std::unordered_map<uint64_t, Order>& get_orders() const { return orders; }
 };
 
-#endif // ORDERBOOK_H
+#endif
