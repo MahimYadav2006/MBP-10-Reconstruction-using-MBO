@@ -46,7 +46,17 @@ To achieve HFT-level performance, the following optimizations were implemented:
 - Sorted vectors allow direct retrieval of the top 10 bid and ask levels, optimizing MBP-10 snapshot generation.
 
 ---
-
+## Overall Flow
+```mermaid
+graph TD
+    A[MBO Feed] --> B(Parser)
+    B --> C{Order Type?}
+    C -->|Add| D[Update Book]
+    C -->|Cancel| E[Remove Order]
+    D --> F[Maintain Sorted Levels]
+    F --> G[Generate MBP-10]
+```
+---
 ## Usage Instructions
 
 The project includes a Makefile for straightforward compilation and execution.
