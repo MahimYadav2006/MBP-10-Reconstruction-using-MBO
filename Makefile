@@ -1,10 +1,15 @@
-all: reconstruction test_orderbook
+CXX = x86_64-w64-mingw32-g++
+CXXFLAGS = -std=c++11 -Wall -O2
 
-reconstruction: main.cpp orderbook.h
-	g++ -o reconstruction main.cpp -std=c++11
+all: reconstruction.exe test_orderbook.exe
 
-test_orderbook: test_orderbook.cpp orderbook.h
-	g++ -o test_orderbook test_orderbook.cpp -std=c++11
+reconstruction.exe: main.cpp orderbook.h
+	$(CXX) $(CXXFLAGS) -o reconstruction.exe main.cpp
+
+test_orderbook.exe: test_orderbook.cpp orderbook.h
+	$(CXX) $(CXXFLAGS) -o test_orderbook.exe test_orderbook.cpp
 
 clean:
-	rm -f reconstruction test_orderbook
+	rm -f *.exe
+
+.PHONY: all clean
